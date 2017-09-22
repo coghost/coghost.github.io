@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[git 使用入门]]></title>
+      <url>http://doequitable.com/20170504/tools/git/git.learn/</url>
+      <content type="html"><![CDATA[<h1 id="git-用法"><a href="#git-用法" class="headerlink" title="git 用法"></a>git 用法</h1><a id="more"></a>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.bootcss.com/p/git-guide/" target="_blank" rel="external">git 简明用法</a></li>
+<li><a href="http://www.tuicool.com/articles/U73q63V" target="_blank" rel="external">git-branch详解</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/26227256" target="_blank" rel="external">Git由浅入深之分支管理</a></li>
+<li><a href="https://www.zhihu.com/question/20093241" target="_blank" rel="external">理解 Git 的分布式</a></li>
+<li><a href="https://git-scm.com" target="_blank" rel="external">git-scm</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/25342570" target="_blank" rel="external">实例阅读</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/22724168" target="_blank" rel="external">常见问题</a></li>
+<li><a href="http://blog.csdn.net/wangjia55/article/details/8793577/" target="_blank" rel="external">git tag</a></li>
+<li><a href="http://www.linuxidc.com/Linux/2017-04/143061.htm" target="_blank" rel="external">命令集锦</a></li>
+<li><a href="http://blog.csdn.net/maybe_windleave/article/details/8703778" target="_blank" rel="external">git-patch</a></li>
+<li><a href="http://www.linuxidc.com/Linux/2014-09/106323.htm" target="_blank" rel="external">git-patch命令</a></li>
+<li><a href="http://blog.csdn.net/hudashi/article/details/7664631/" target="_blank" rel="external">git-rebase</a></li>
+<li><a href="http://www.cnblogs.com/cnblogsfans/p/5075073.html" target="_blank" rel="external">git flow</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="external">git flow 阮</a></li>
+<li><a href="https://www.oschina.net/translate/the-11-rules-of-gitlab-flow" target="_blank" rel="external">gitlab flow rules 11</a></li>
+<li>​</li>
+</ul>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><h3 id="分支命名"><a href="#分支命名" class="headerlink" title="分支命名"></a>分支命名</h3><ul>
+<li><p>Production(master)</p>
+<blockquote>
+<p>​</p>
+</blockquote>
+</li>
+<li><p>Develop</p>
+</li>
+</ul>
+<h2 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h2><h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p>​    <img src="/20170504/tools/git/git.learn/git-workflow.png" alt="git-workflow"></p>
+<h3 id="工作目录"><a href="#工作目录" class="headerlink" title="工作目录"></a>工作目录</h3><ul>
+<li>工作区</li>
+</ul>
+<h3 id="缓存区-Index"><a href="#缓存区-Index" class="headerlink" title="缓存区(Index)"></a>缓存区(Index)</h3><ul>
+<li><p>缓冲改动 <code>添加改动到缓冲区</code></p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">git add &lt;filename&gt;</div><div class="line">git add *</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><ul>
+<li><p>提交改动 <code>提交改动到 HEAD</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">git commit -m <span class="string">"代码提交信息"</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="远端仓库"><a href="#远端仓库" class="headerlink" title="远端仓库"></a>远端仓库</h3><ul>
+<li><p>推送改动</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">git push origin master</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="指令说明"><a href="#指令说明" class="headerlink" title="指令说明"></a>指令说明</h2><h3 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a><code>git push</code></h3><ul>
+<li><p>图例</p>
+<p><img src="/20170504/tools/git/git.learn/origin-master.png" alt="origin-master"></p>
+</li>
+</ul>
+<ul>
+<li><p><code>git push A B:C</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># &lt;git push&gt; &lt;remote&gt; &lt;src:dst&gt;</span></div><div class="line"><span class="comment"># 推送 本地B 更新到 远端 A/C</span></div><div class="line">cmd_str = <span class="string">'git push A B:C'</span></div><div class="line"></div><div class="line"><span class="comment"># 推送 B 更新到 A/B</span></div><div class="line">cmd_str = <span class="string">'git push A B'</span> <span class="comment"># 等同于 'git push A B:B'</span></div><div class="line"></div><div class="line"><span class="comment"># 推送 B 更新到 A的分支 mybranch</span></div><div class="line">cmd_str = <span class="string">'git push A B:refs/for/mybranch'</span></div><div class="line"></div><div class="line">cmd = <span class="string">'git push'</span></div><div class="line">remote = <span class="string">'origin'</span></div><div class="line">dst = src = <span class="string">'master'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> dst_ref:</div><div class="line">    dst = dst_ref</div><div class="line"></div><div class="line">cmd = <span class="string">'&#123;&#125; &#123;&#125; &#123;&#125;:&#123;&#125;'</span>.format(cmd, remote, src, dst)</div><div class="line">run_cmd(cmd)</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+<h3 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a><code>git diff</code></h3><ul>
+<li><code>git diff master feature_cmd</code></li>
+</ul>
+<h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a><code>git merge</code></h3><ul>
+<li>step1: <code>git checkout master</code></li>
+</ul>
+<ul>
+<li>step2: <code>git merge feature_cmd</code></li>
+</ul>
+<h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a><code>git tag</code></h3><ul>
+<li>打标签: <code>git tag 1.0.0 045e3fd272c384</code> </li>
+<li>推送标签: <code>git push origin 1.0.0</code></li>
+<li>可以为任意 <code>commit</code> 打标签, 不一定需要在 <code>head</code> 上, 也可以在之前的版本上面打</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> tools </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[useful links]]></title>
+      <url>http://doequitable.com/20170405/tools/links/</url>
+      <content type="html"><![CDATA[<h1 id="实用链接"><a href="#实用链接" class="headerlink" title="实用链接"></a>实用链接</h1><a id="more"></a>
+<h2 id="博主"><a href="#博主" class="headerlink" title="博主"></a>博主</h2><ul>
+<li><a href="http://www.yinwang.org" target="_blank" rel="external">王垠-博客</a></li>
+<li><a href="http://www.jianshu.com/u/b1dd2b2c87a8" target="_blank" rel="external">王垠-简书</a></li>
+<li><a href="http://coolshell.cn" target="_blank" rel="external">陈皓-酷壳</a></li>
+</ul>
+<h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><ul>
+<li><a href="https://www.shodan.io" target="_blank" rel="external">shodan: search for devices connected to Internet</a><ul>
+<li><code>shodan</code> 可以查看所有联网设备的开放端口/服务信息</li>
+</ul>
+</li>
+</ul>
+<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><ul>
+<li><a href="http://blog.c1gstudio.com/archives/434" target="_blank" rel="external">rewrite-c1gstudio</a></li>
+</ul>
+<h2 id="web-ui"><a href="#web-ui" class="headerlink" title="web-ui"></a>web-ui</h2><ul>
+<li><a href="https://www.npmjs.com/package/vue-gridster" target="_blank" rel="external">vue-grid-layout</a></li>
+<li><a href="http://www.office-converter.com/SVG-to-ICO" target="_blank" rel="external">svg2ico</a></li>
+<li><a href="http://www.iconfont.cn/plus/home/index" target="_blank" rel="external">ali 图标</a></li>
+<li><a href="https://github.com/galenyuan/vue-datatable" target="_blank" rel="external">vue-datatable</a></li>
+<li><a href="https://galenyuan.github.io/vue-datatable/" target="_blank" rel="external">vue-datatable-demo</a></li>
+</ul>
+<h2 id="Python库"><a href="#Python库" class="headerlink" title="Python库"></a>Python库</h2><ul>
+<li><a href="https://segmentfault.com/a/1190000010103386" target="_blank" rel="external">有趣的库</a></li>
+<li>​</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> tools </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> links </tag>
+            
+            <tag> tools </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hexo 使用]]></title>
+      <url>http://doequitable.com/20161220/tools/hexo/Hexo/</url>
+      <content type="html"><![CDATA[<h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><h2 id="1-安装部署"><a href="#1-安装部署" class="headerlink" title="1. 安装部署"></a>1. 安装部署</h2><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">npm install hexo-cli -g</div><div class="line">hexo init blog</div><div class="line">cd blog</div><div class="line">npm install</div><div class="line"><span class="meta">#</span><span class="bash"> hexo s</span></div><div class="line">hexo server</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="2-使用-pm2-管理-hexo"><a href="#2-使用-pm2-管理-hexo" class="headerlink" title="2. 使用 pm2 管理 hexo"></a>2. 使用 <code>pm2</code> 管理 <code>hexo</code></h2><ul>
+<li>建立 <code>pm2</code> 脚本: <code>vi hexo.sh</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="comment"># pm2 脚本</span></div><div class="line">hexo server</div></pre></td></tr></table></figure>
+<ul>
+<li>启动: <code>pm2 start hexo</code></li>
+<li>查看: <code>pm2 list</code></li>
+</ul>
+<p><img src="/20161220/tools/hexo/Hexo/hexo_pm2.png" alt="hexo_pm2"></p>
+<h2 id="3-theme"><a href="#3-theme" class="headerlink" title="3. theme:"></a>3. <code>theme</code>:</h2><h3 id="3-1-marterial"><a href="#3-1-marterial" class="headerlink" title="3.1 marterial"></a>3.1 <a href="https://material.vss.im/compose/" target="_blank" rel="external"><code>marterial</code></a></h3><h3 id="3-2-Yelee"><a href="#3-2-Yelee" class="headerlink" title="3.2 Yelee"></a>3.2 <a href="http://moxfive.xyz/yelee/2.Basic-Usage/404-page.html" target="_blank" rel="external"><code>Yelee</code></a></h3><h2 id="4-使用图片"><a href="#4-使用图片" class="headerlink" title="4. 使用图片"></a>4. <code>使用图片</code></h2><ul>
+<li><p><a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="external"><code>hexo-asset-image</code></a></p>
+</li>
+<li><p><code>install</code></p>
+<blockquote>
+<p><code>npm install hexo-asset-image --save</code></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="5-编辑器-typora"><a href="#5-编辑器-typora" class="headerlink" title="5. 编辑器 typora"></a>5. 编辑器 <a href="http://www.typora.io" target="_blank" rel="external"><code>typora</code></a></h2><h2 id="6-nginx-支持"><a href="#6-nginx-支持" class="headerlink" title="6. nginx 支持"></a>6. nginx 支持</h2><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen  80;</div><div class="line">    server_name     &lt;server_name&gt;;</div><div class="line">    autoindex on;</div><div class="line">    autoindex_exact_size off;</div><div class="line">    autoindex_localtime on;</div><div class="line">    index        index.html index.htm;</div><div class="line"></div><div class="line">    access_log /pth/&lt;&gt;/access.log;</div><div class="line">    error_log /pth/&lt;&gt;/error.log;</div><div class="line">    location / &#123;</div><div class="line">        proxy_pass http://127.0.0.1:4000;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> nodejs </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> nodejs </tag>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
