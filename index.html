@@ -194,7 +194,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/links/">links</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Celery/">Celery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/huey/">huey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/links/">links</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/luoo/">luoo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mrq/">mrq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li></ul>
                     </div>
                 </section>
                 
@@ -273,11 +273,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-tools/git/git.learn" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-tools/mq/rabbitmq" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/20170504/tools/git/git.learn/" class="article-date">
-      <time datetime="2017-05-03T16:00:00.000Z" itemprop="datePublished">2017-05-04</time>
+      <a href="/20171220/tools/mq/rabbitmq/" class="article-date">
+      <time datetime="2017-12-19T16:00:00.000Z" itemprop="datePublished">2017-12-20</time>
 </a>
 
 
@@ -292,7 +292,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/20170504/tools/git/git.learn/">git 使用入门</a>
+      <a class="article-title" href="/20171220/tools/mq/rabbitmq/">RabbitMQ</a>
     </h1>
   
 
@@ -302,8 +302,21 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="git-用法"><a href="#git-用法" class="headerlink" title="git 用法"></a>git 用法</h1>
-          
+        <h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><h2 id="rabbitmq-on-docker"><a href="#rabbitmq-on-docker" class="headerlink" title="rabbitmq on docker"></a>rabbitmq on docker</h2><ul>
+<li><a href="http://www.rabbitmq.com/networking.html" target="_blank" rel="external">端口</a></li>
+</ul>
+<ul>
+<li><a href="https://hub.docker.com/_/rabbitmq/" target="_blank" rel="external"><code>dockerhub-rabbitmq</code></a></li>
+</ul>
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 使用 docker 环境</span></div><div class="line">docker pull rabbitmq</div></pre></td></tr></table></figure>
+<ul>
+<li>配置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">docker run \</div><div class="line">-tid \</div><div class="line">--hostname celery \</div><div class="line">--name rabbit \</div><div class="line">-p 15672:15672 \</div><div class="line">-p 5672:5672 \</div><div class="line">-p 5671:5671 \</div><div class="line">-p 15671:15671 \</div><div class="line">-e RABBITMQ_DEFAULT_USER=admin \</div><div class="line">-e RABBITMQ_DEFAULT_PASS=admin \</div><div class="line">-e RABBITMQ_ERLANG_COOKIE=<span class="string">'youcanneverseethis'</span> \</div><div class="line">-v &lt;YOUR_HOME_DIR&gt;/rabbitmq/:/var/lib/rabbitmq \</div><div class="line">rabbitmq:3-management</div></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -317,12 +330,560 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mq/">mq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-python/tlibs/celery/celery_step2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171220/python/tlibs/celery/celery_step2/" class="article-date">
+      <time datetime="2017-12-19T16:00:00.000Z" itemprop="datePublished">2017-12-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20171220/python/tlibs/celery/celery_step2/">Celery First Step</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Celery-Next-Steps"><a href="#Celery-Next-Steps" class="headerlink" title="Celery Next Steps"></a>Celery Next Steps</h1><h2 id="在应用中使用Celery"><a href="#在应用中使用Celery" class="headerlink" title="在应用中使用Celery"></a>在应用中使用<code>Celery</code></h2><h3 id="项目布局"><a href="#项目布局" class="headerlink" title="项目布局"></a>项目布局</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<h2 id="调用任务"><a href="#调用任务" class="headerlink" title="调用任务"></a>调用任务</h2><h2 id="Canvas-定义工作流"><a href="#Canvas-定义工作流" class="headerlink" title="Canvas: 定义工作流"></a>Canvas: 定义工作流</h2><h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h2 id="远程控制"><a href="#远程控制" class="headerlink" title="远程控制"></a>远程控制</h2><h2 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h2><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Celery/">Celery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-python/tlibs/toapi" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171219/python/tlibs/toapi/" class="article-date">
+      <time datetime="2017-12-19T06:47:56.012Z" itemprop="datePublished">2017-12-19</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20171219/python/tlibs/toapi/">toapi</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="ToApi"><a href="#ToApi" class="headerlink" title="ToApi"></a>ToApi</h1>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-python/tlibs/celery/celery_first_step" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171213/python/tlibs/celery/celery_first_step/" class="article-date">
+      <time datetime="2017-12-12T16:00:00.000Z" itemprop="datePublished">2017-12-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20171213/python/tlibs/celery/celery_first_step/">Celery First Step</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Celery-First-Step"><a href="#Celery-First-Step" class="headerlink" title="Celery: First Step"></a>Celery: First Step</h1><p><code>Celery</code>是一个功能完备的任务队列, 可以方便的与其他语言集成, 可以放心在生成环境中使用.</p>
+<ul>
+<li>选择安装一个消息队列</li>
+<li>安装Celery并创建任务</li>
+<li>启动<code>worker</code>调用<code>tasks</code></li>
+<li>追踪监视任务的不同状态,监测返回信息</li>
+</ul>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><p><a href="http://docs.celeryproject.org/en/master/getting-started/first-steps-with-celery.html#first-steps" target="_blank" rel="external">First Steps</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/valor-xh/p/6348009.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">消息队列比较</a></p>
+<p>​</p>
+</li>
+</ul>
+<h2 id="选择Broker"><a href="#选择Broker" class="headerlink" title="选择Broker"></a>选择<code>Broker</code></h2><p>Celery需要接收和发送消息,通常情况下使用独立的消息队列</p>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><ul>
+<li><a href="http://www.rabbitmq.com/networking.html" target="_blank" rel="external">端口</a></li>
+</ul>
+<ul>
+<li><a href="https://hub.docker.com/_/rabbitmq/" target="_blank" rel="external"><code>dockerhub-rabbitmq</code></a></li>
+</ul>
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 使用 docker 环境</span></div><div class="line">docker pull rabbitmq</div></pre></td></tr></table></figure>
+<ul>
+<li>配置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">docker run \</div><div class="line">-tid \</div><div class="line">--hostname celery \</div><div class="line">--name rabbit \</div><div class="line">-p 15672:15672 \</div><div class="line">-p 5672:5672 \</div><div class="line">-p 5671:5671 \</div><div class="line">-p 15671:15671 \</div><div class="line">-e RABBITMQ_DEFAULT_USER=admin \</div><div class="line">-e RABBITMQ_DEFAULT_PASS=admin \</div><div class="line">-e RABBITMQ_ERLANG_COOKIE=<span class="string">'youcanneverseethis'</span> \</div><div class="line">-v &lt;YOUR_HOME_DIR&gt;/rabbitmq/:/var/lib/rabbitmq \</div><div class="line">rabbitmq:3-management</div></pre></td></tr></table></figure>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><p>可以使用, 但是在异常情况下可能会导致数据丢失</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a><a href="http://docs.celeryproject.org/en/master/getting-started/brokers/index.html#broker-overview" target="_blank" rel="external">其他</a></h3><h2 id="安装Celery"><a href="#安装Celery" class="headerlink" title="安装Celery"></a>安装<code>Celery</code></h2><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">pip install celery</div></pre></td></tr></table></figure>
+<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><h3 id="tasks-py"><a href="#tasks-py" class="headerlink" title="tasks.py"></a><code>tasks.py</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 一个简单的任务, add, 并且返回两个数字的和</span></div><div class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</div><div class="line"></div><div class="line">app = Celery(<span class="string">'tasks'</span>,</div><div class="line">             backend=<span class="string">'redis://:123456@localhost:6380/0'</span>,</div><div class="line">             broker=<span class="string">'amqp://admin:admin@localhost:5672'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@app.task</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></div><div class="line">    <span class="keyword">return</span> x + y</div><div class="line">  </div><div class="line"><span class="meta">@app.task</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">d0</span><span class="params">(x, y)</span>:</span></div><div class="line">    time.sleep(<span class="number">100</span>)</div><div class="line">    <span class="keyword">return</span> x / y</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</div><div class="line">        res = d0.delay(<span class="number">16</span>, <span class="number">0</span>)</div><div class="line">        print(res.ready())</div></pre></td></tr></table></figure>
+<h2 id="运行Celery-worker-服务端"><a href="#运行Celery-worker-服务端" class="headerlink" title="运行Celery worker 服务端"></a>运行<code>Celery worker</code> 服务端</h2><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">celery -A tasks worker --loglevel=info</div></pre></td></tr></table></figure>
+<h2 id="执行任务"><a href="#执行任务" class="headerlink" title="执行任务"></a>执行任务</h2><h3 id="task端"><a href="#task端" class="headerlink" title="task端"></a>task端</h3><p>可以使用 <code>delay()</code> 来调用方法, 这是简便的<code>apply_async</code>方法</p>
+<ul>
+<li>返回的是 <code>AsyncResult</code> 实例</li>
+<li>可以检测任务状态, 等待任务结束, 获取返回值</li>
+<li>如果失败可以获取失败详情</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; from tasks import add</div><div class="line">&gt;&gt;&gt; add.delay(16, 4)</div><div class="line"></div><div class="line"><span class="comment"># 或者直接调用</span></div><div class="line">python3 tasks.py</div></pre></td></tr></table></figure>
+<h3 id="worker-log输出"><a href="#worker-log输出" class="headerlink" title="worker log输出"></a><code>worker</code> log输出</h3><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">[2017-12-19 18:31:34,401: INFO/MainProcess] Received task: tasks.add[16ae3321-a3e1-4498-9c92-cd1680d82fae]</div><div class="line">[2017-12-19 18:31:34,443: INFO/ForkPoolWorker-2] Task tasks.add[16ae3321-a3e1-4498-9c92-cd1680d82fae] succeeded <span class="keyword">in</span> 0.03918749799777288s: 20</div></pre></td></tr></table></figure>
+<h2 id="保存结果"><a href="#保存结果" class="headerlink" title="保存结果"></a>保存结果</h2><h3 id="使用RPC"><a href="#使用RPC" class="headerlink" title="使用RPC"></a>使用<code>RPC</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app = Celery(<span class="string">'tasks'</span>,</div><div class="line">             backend=<span class="string">'rpc://admin:admin@localhost/cc'</span>,</div><div class="line">             broker=<span class="string">'amqp://admin:admin@localhost:5672/cc'</span>)</div></pre></td></tr></table></figure>
+<h3 id="使用redis"><a href="#使用redis" class="headerlink" title="使用redis"></a>使用<code>redis</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app = Celery(<span class="string">'tasks'</span>,</div><div class="line">             backend=<span class="string">'redis://:123456@localhost:6380/0'</span>,</div><div class="line">             broker=<span class="string">'amqp://admin:admin@localhost:5672'</span>)</div></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Celery并不需要太多配置, 通常情况下, 它需要一个<code>输入</code>和<code>输出</code>, <code>输入</code>需要连接到<code>broker</code>, 而输出可以连接到一个<code>backend</code>, 不过如果你需要进行更进一步的操作, 你可以使用<code>配置功能</code></p>
+<h3 id="启用方法"><a href="#启用方法" class="headerlink" title="启用方法"></a>启用方法</h3><ul>
+<li>直接在<code>app</code>中使用配置</li>
+<li>通过专用的配置模块</li>
+</ul>
+<h3 id="实例app"><a href="#实例app" class="headerlink" title="实例app"></a>实例<code>app</code></h3><blockquote>
+<p>单个赋值</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app.conf.task_serializer = <span class="string">'json'</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>多个</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app.conf.update(</div><div class="line">    task_serializer=<span class="string">'json'</span>,</div><div class="line">    accept_content=[<span class="string">'json'</span>],  <span class="comment"># Ignore other content</span></div><div class="line">    result_serializer=<span class="string">'json'</span>,</div><div class="line">    timezone=<span class="string">'Europe/Oslo'</span>,</div><div class="line">    enable_utc=<span class="keyword">True</span>,</div><div class="line">)</div></pre></td></tr></table></figure>
+<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><blockquote>
+<p>启用</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># assume you have a `celeryconfig.py`</span></div><div class="line">app.config_from_object(<span class="string">'celeryconfig'</span>)	<span class="comment"># celeryconfig -&gt; celeryconfig.py</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>celeryconfig.py</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">broker_url = <span class="string">'pyamqp://'</span></div><div class="line">result_backend = <span class="string">'rpc://'</span></div><div class="line"></div><div class="line">task_serializer = <span class="string">'json'</span></div><div class="line">result_serializer = <span class="string">'json'</span></div><div class="line">accept_content = [<span class="string">'json'</span>]</div><div class="line">timezone = <span class="string">'Europe/Oslo'</span></div><div class="line">enable_utc = <span class="keyword">True</span></div></pre></td></tr></table></figure>
+<p>验证配置参数 <code>python3 -m celeryconfig</code></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li>优先级</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">task_routes = &#123;</div><div class="line">  <span class="string">'tasks.add'</span>: <span class="string">'low-priority'</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>rate/运行速度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">task_annotations = &#123;</div><div class="line">  <span class="string">'tasks.add'</span>: &#123;<span class="string">'rate_limit'</span>: <span class="string">'10/m'</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>当前如果你使用 <code>RabbitMQ/Redis</code> 作为<code>broker</code>, 你可以直接传递参数到任务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ celery -A tasks control rate_limit tasks.add 10/m</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Celery/">Celery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-python/tlibs/mrq" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171213/python/tlibs/mrq/" class="article-date">
+      <time datetime="2017-12-12T16:00:00.000Z" itemprop="datePublished">2017-12-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20171213/python/tlibs/mrq/">MRQ</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="MRQ"><a href="#MRQ" class="headerlink" title="MRQ"></a>MRQ</h1><p><code>MRQ</code>是基于<code>mongo/redis/gevent</code>的分布式任务队列</p>
+<blockquote>
+<p>WHY?</p>
+</blockquote>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mrq/">mrq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-python/tlibs/huey" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171213/python/tlibs/huey/" class="article-date">
+      <time datetime="2017-12-12T16:00:00.000Z" itemprop="datePublished">2017-12-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20171213/python/tlibs/huey/">huey</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Huey"><a href="#Huey" class="headerlink" title="Huey"></a>Huey</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="一个轻量级备选库"><a href="#一个轻量级备选库" class="headerlink" title="一个轻量级备选库"></a>一个轻量级备选库</h3><ul>
+<li>使用 python 编写</li>
+<li>唯一依赖 <code>Python Redis client</code></li>
+</ul>
+<h3 id="支持"><a href="#支持" class="headerlink" title="支持"></a>支持</h3><ul>
+<li>多进程, 多线程或者 <a href="https://greenlet.readthedocs.io/en/latest/" target="_blank" rel="external"><code>greenlet task</code></a> 任务模型</li>
+<li>可在指定时间或者延迟后执行的计划任务</li>
+<li>像<code>crontab</code>一样定期重复执行</li>
+<li>自动重试失败任务</li>
+<li>存储任务结果</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>pip </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install huey</div></pre></td></tr></table></figure>
+<p>安装并自动启动数据库 <code>SQLite/Redis</code><backend>支持</backend></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install huey[backends]</div></pre></td></tr></table></figure>
+<p>除了标准库依赖外, 只需要 <code>redis</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install redis</div></pre></td></tr></table></figure>
+<p>如果你的任务是 <code>IO密集型</code> 而不是 <code>CPU密集型</code> <a href="http://blog.csdn.net/q_l_s/article/details/51538039" target="_blank" rel="external">参考IO/CPU bound</a>, 那么可以考虑使用 <code>greenlet</code> 工作类型. </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install gevent</div></pre></td></tr></table></figure>
+<p>使用 git 安装最新版本</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/coleifer/huey.git</div><div class="line">$ <span class="built_in">cd</span> huey</div><div class="line">$ python setup.py install</div></pre></td></tr></table></figure>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><h3 id="向导"><a href="#向导" class="headerlink" title="向导"></a>向导</h3><p>使用<code>huey</code>需要注意以下3点</p>
+<ul>
+<li>生产者<code>the produces(s)</code> : i.e. web应用 </li>
+<li>消费者<code>the consumer(s)</code> </li>
+<li>任务队列存储<code>queue</code> : e.g. Redis</li>
+</ul>
+<p><img src="/20171213/python/tlibs/huey/intro.png" alt="intro"></p>
+<p>如图所示的这三个进程</p>
+<p>左侧是生产者, 右上是消费者, 右下是队列</p>
+<h3 id="建议代码目录结构"><a href="#建议代码目录结构" class="headerlink" title="建议代码目录结构"></a><code>建议</code>代码目录结构</h3><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── __init__.py</div><div class="line">├── app.py	<span class="comment"># producer 生产者</span></div><div class="line">├── config.py	<span class="comment"># 队列存储配置文件</span></div><div class="line">└── tasks.py	<span class="comment"># 任务, 消费者</span></div></pre></td></tr></table></figure>
+<p>首先是配置你的任务队列. 消费者需要一个指明所用后端<code>Huey实例</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># config.py</span></div><div class="line"><span class="keyword">from</span> huey <span class="keyword">import</span> RedisHuey</div><div class="line"></div><div class="line">huey = RedisHuey()</div></pre></td></tr></table></figure>
+<p><code>huey</code>对象封装了队列, 而这个队列用来负责存储和收取信息, 你的应用代码中的<code>huey</code>实例使用了后端来协调函数调用. </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey <span class="comment"># import the huey we instantiated in config.py</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 通过装饰器, 可以简单的实现 消费者消费 功能</span></div><div class="line"><span class="meta">@huey.task()</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_beans</span><span class="params">(num)</span>:</span></div><div class="line">    print(<span class="string">'-- counted %s beans --'</span> % num)</div></pre></td></tr></table></figure>
+<p>上述例子说明了实现<code>消费者</code>的最简方法, 通过<code>装饰器</code>. 当<code>count_beans</code>被 <code>main</code>调用时, 只要<code>enqueueing</code>完成对函数的调用后会立即返回,而不是等待<code>count_beans</code>的执行结果,无论<code>count_beans</code>是否有耗时操作.</p>
+<p>我们的主执行程序很简单, 只需要导入配置和任务即可. 这是为了确保当我们在通过指向配置运行<code>consumer</code>时, 任务也被导入并加载到了内存中.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># main.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey  <span class="comment"># import our "huey" object 需要保证导入名字为 huey, 否则会报错</span></div><div class="line"><span class="keyword">from</span> tasks <span class="keyword">import</span> count_beans  <span class="comment"># import our task</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    beans = raw_input(<span class="string">'How many beans? '</span>)</div><div class="line">    count_beans(int(beans))</div><div class="line">    print(<span class="string">'Enqueued job to count %s beans'</span> % beans)</div></pre></td></tr></table></figure>
+<h3 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h3><ul>
+<li>注意:<code>main.huey</code>表示 <code>main.py</code> 中导入 的 <code>huey 实例</code></li>
+<li>如果 <code>from config import huey as mmhuey</code>, 则运行脚本是 <code>huey_consumer.py main.mmhuey</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 消费者, 消费队列 </span></div><div class="line">huey_consumer.py main.huey</div><div class="line"></div><div class="line"><span class="comment"># 生产者, 压入队列</span></div><div class="line">python main.py</div></pre></td></tr></table></figure>
+<h3 id="任务结果"><a href="#任务结果" class="headerlink" title="任务结果"></a>任务结果</h3><p>上述任务描述了 <code>只发不收</code> 的场景, 但是如果你需要任务的返回结果呢? 为了获取结果, 你只需要在你的任务中返回即可.</p>
+<blockquote>
+<p>注意: 存储结果会浪费大量空间, 如果结果不是必须, 请返回为 None, 或者在 <code>Huey</code>实例中设置 <code>result_store=False</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@huey.task()</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_beans</span><span class="params">(num)</span>:</span></div><div class="line">    print(<span class="string">'-- counted %s beans --'</span> % num)</div><div class="line">    <span class="keyword">return</span> <span class="string">'Counted %s beans'</span> % num</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># main.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey  <span class="comment"># import our "huey" object 需要保证导入名字为 huey, 否则会报错</span></div><div class="line"><span class="keyword">from</span> tasks <span class="keyword">import</span> count_beans  <span class="comment"># import our task</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    beans = raw_input(<span class="string">'How many beans? '</span>)</div><div class="line">    rs = count_beans(int(beans))</div><div class="line">    print(<span class="string">'Enqueued job to count %s beans'</span> % beans)</div><div class="line">    print(rs()) <span class="comment"># 由于使用异步队列, 故与使用显示调用的 rs.get() 一样都是 None</span></div><div class="line">    <span class="comment"># 如果需要获取结果 需要使用 rs(blocking=True)</span></div></pre></td></tr></table></figure>
+<h3 id="在将来某个时刻运行"><a href="#在将来某个时刻运行" class="headerlink" title="在将来某个时刻运行"></a>在将来某个时刻运行</h3><blockquote>
+<p>需要在 main 中调用时, 启用 schedule 来实现</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># main.py</span></div><div class="line"><span class="comment"># 建立1个10s后执行的任务</span></div><div class="line">count_beans.schedule(args=(<span class="number">100</span>,), delay=<span class="number">10</span>)</div><div class="line"></div><div class="line"><span class="comment"># 建立一个 60s 后运行的任务</span></div><div class="line">count_beans.schedule(args=(<span class="number">100</span>,),</div><div class="line">                     eta=datetime.datetime.now() + datetime.timedelta(seconds=<span class="number">60</span>))</div></pre></td></tr></table></figure>
+<h3 id="失败重试机制"><a href="#失败重试机制" class="headerlink" title="失败重试机制"></a>失败重试机制</h3><blockquote>
+<p>直接在 tasks 中使用装饰器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="meta">@huey.task(retries=3)</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">try_thrice</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'trying....'</span>)</div><div class="line">    <span class="keyword">raise</span> Exception(<span class="string">'nope'</span>)</div></pre></td></tr></table></figure>
+<h3 id="计划执行任务"><a href="#计划执行任务" class="headerlink" title="计划执行任务"></a>计划执行任务</h3><blockquote>
+<p>使用 crontab 来实现.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div><div class="line"><span class="keyword">from</span> huey <span class="keyword">import</span> crontab</div><div class="line"></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey</div><div class="line"></div><div class="line"><span class="meta">@huey.periodic_task(crontab(minute='*'))</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_time</span><span class="params">()</span>:</span></div><div class="line">    print(datetime.now())</div></pre></td></tr></table></figure>
+<h3 id="取消-暂停任务"><a href="#取消-暂停任务" class="headerlink" title="取消/暂停任务"></a>取消/暂停任务</h3><h4 id="普通任务"><a href="#普通任务" class="headerlink" title="普通任务"></a>普通任务</h4><blockquote>
+<p>取消单个实例</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">res = count_beans(<span class="number">1024</span>)</div><div class="line"><span class="comment"># 取消,尚未执行的任务</span></div><div class="line">res.revoke()</div><div class="line"><span class="comment"># 当然也可以重新恢复</span></div><div class="line">res.restore()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>取消给定任务的所有实例</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 撤消</span></div><div class="line">count_beans.revoke()</div><div class="line"><span class="comment"># 恢复</span></div><div class="line">count_beans.restore()</div></pre></td></tr></table></figure>
+<h4 id="定期任务"><a href="#定期任务" class="headerlink" title="定期任务"></a>定期任务</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">@huey.periodic_task(crontab(minute='*'))</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_time</span><span class="params">()</span>:</span></div><div class="line">    print(datetime.now())</div></pre></td></tr></table></figure>
+<blockquote>
+<p>停止一次</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">print_time.revoke(revoke_once=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>停止到直到某个时间</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># prevent printing time for 10 minutes</span></div><div class="line">now = datetime.datetime.utcnow()</div><div class="line">in_10 = now + datetime.timedelta(seconds=<span class="number">600</span>)</div><div class="line"></div><div class="line">print_time.revoke(revoke_until=in_10)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>永远停止</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">print_time.revoke()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>随时恢复</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">print_time.restore()</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/huey/">huey</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/队列/">队列</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-python/tlibs/hot-redis" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171208/python/tlibs/hot-redis/" class="article-date">
+      <time datetime="2017-12-07T16:00:00.000Z" itemprop="datePublished">2017-12-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20171208/python/tlibs/hot-redis/">hot-redis</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="hot-redis"><a href="#hot-redis" class="headerlink" title="hot-redis"></a>hot-redis</h1><ul>
+<li><a href="https://github.com/stephenmcd/hot-redis" target="_blank" rel="external">github</a></li>
+</ul>
+<ul>
+<li>开发者: <a href="http://twitter.com/stephen_mcd" target="_blank" rel="external">Stephen McDonald</a></li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p><code>HOT Redis</code>是<code>redis-py</code>的封装库. 它不需要使用<code>Redis</code>_指令直接操作客户端. 它模拟了 <code>python</code>内置的如 <code>lists, dicts, sets</code>等数据类型, 以及<code>Queue, threading和collections等模块</code>提供的<code>标准库类</code>复杂结构类型,  只需要操作这些类型便可以进行redis操作</p>
+<p>这些类型都由 Redis 支持, 可以在网络上进行<code>原子操作</code> – 关于对象的<code>原子操作</code>是<code>HOT redis</code>一个核心功能, 而这些都是由在 Redis 内部运行的 <code>Lua</code>_脚本来提供支持, 用于确保原子操作正常工作. </p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/20170504/tools/git/git.learn/#more">阅读全文 >></a>
+          <a href="/20171208/python/tlibs/hot-redis/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -341,11 +902,11 @@
 
 
   
-    <article id="post-tools/links" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-luoo.net/index" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/20170405/tools/links/" class="article-date">
-      <time datetime="2017-04-04T16:00:00.000Z" itemprop="datePublished">2017-04-05</time>
+      <a href="/20171018/luoo.net/index/" class="article-date">
+      <time datetime="2017-10-17T16:00:00.000Z" itemprop="datePublished">2017-10-18</time>
 </a>
 
 
@@ -360,7 +921,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/20170405/tools/links/">useful links</a>
+      <a class="article-title" href="/20171018/luoo.net/index/">index page</a>
     </h1>
   
 
@@ -370,8 +931,79 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="实用链接"><a href="#实用链接" class="headerlink" title="实用链接"></a>实用链接</h1>
+              <h1 id="落网音乐"><a href="#落网音乐" class="headerlink" title="落网音乐"></a>落网音乐</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>[ ] <del>直接注册使用其API</del></li>
+<li>[x] 爬取页面, 存储于数据库, 自我维护API</li>
+<li>[x] mongo 数据库</li>
+</ul>
           
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/luoo/">luoo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/luoo/">luoo</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/20171018/luoo.net/index/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-index" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20170928/index/" class="article-date">
+      <time datetime="2017-09-27T16:00:00.000Z" itemprop="datePublished">2017-09-28</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/20170928/index/">index page</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        
       
     </div>
     
@@ -384,14 +1016,6 @@
 
 
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/links/">links</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/20170405/tools/links/#more">阅读全文 >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -409,11 +1033,11 @@
 
 
   
-    <article id="post-tools/hexo/Hexo" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-coding/时间复杂度" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/20161220/tools/hexo/Hexo/" class="article-date">
-      <time datetime="2016-12-20T05:56:10.000Z" itemprop="datePublished">2016-12-20</time>
+      <a href="/20170925/coding/时间复杂度/" class="article-date">
+      <time datetime="2017-09-24T16:00:00.000Z" itemprop="datePublished">2017-09-25</time>
 </a>
 
 
@@ -428,7 +1052,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/20161220/tools/hexo/Hexo/">Hexo 使用</a>
+      <a class="article-title" href="/20170925/coding/时间复杂度/">时间复杂度</a>
     </h1>
   
 
@@ -438,7 +1062,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><h2 id="1-安装部署"><a href="#1-安装部署" class="headerlink" title="1. 安装部署"></a>1. 安装部署</h2><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">npm install hexo-cli -g</div><div class="line">hexo init blog</div><div class="line">cd blog</div><div class="line">npm install</div><div class="line"><span class="meta">#</span> hexo s</div><div class="line">hexo server</div></pre></td></tr></table></figure>
+              <h1 id="algorithms-时间复杂度"><a href="#algorithms-时间复杂度" class="headerlink" title="algorithms 时间复杂度"></a>algorithms 时间复杂度</h1><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><p><a href="http://blog.csdn.net/zdk930519/article/details/54137476" target="_blank" rel="external">数学公式</a></p>
+</li>
+<li><p><a href="http://blog.csdn.net/zolalad/article/details/11848739" target="_blank" rel="external">CSDN.zolalad</a></p>
+</li>
+</ul>
           
       
     </div>
@@ -447,18 +1076,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+    <a class="article-category-link" href="/categories/algorithms/">algorithms</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/20161220/tools/hexo/Hexo/#more">阅读全文 >></a>
+          <a href="/20170925/coding/时间复杂度/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -477,6 +1106,10 @@
 
 
   
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">

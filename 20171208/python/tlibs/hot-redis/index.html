@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="coghost" />
+
+
+
+<meta name="description" content="hot-redis github   开发者: Stephen McDonald  简介 HOT Redis是redis-py的封装库. 它不需要使用Redis_指令直接操作客户端. 它模拟了 python内置的如 lists, dicts, sets等数据类型, 以及Queue, threading和collections等模块提供的标准库类复杂结构类型,  只需要操作这些类型便可以进行redi">
+<meta name="keywords" content="python,redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hot-redis">
+<meta property="og:url" content="http://doequitable.com/20171208/python/tlibs/hot-redis/index.html">
+<meta property="og:site_name" content="DoEquitable">
+<meta property="og:description" content="hot-redis github   开发者: Stephen McDonald  简介 HOT Redis是redis-py的封装库. 它不需要使用Redis_指令直接操作客户端. 它模拟了 python内置的如 lists, dicts, sets等数据类型, 以及Queue, threading和collections等模块提供的标准库类复杂结构类型,  只需要操作这些类型便可以进行redi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-13T03:18:19.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hot-redis">
+<meta name="twitter:description" content="hot-redis github   开发者: Stephen McDonald  简介 HOT Redis是redis-py的封装库. 它不需要使用Redis_指令直接操作客户端. 它模拟了 python内置的如 lists, dicts, sets等数据类型, 以及Queue, threading和collections等模块提供的标准库类复杂结构类型,  只需要操作这些类型便可以进行redi">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/mermaid/mermaid.css">
+<script src="/mermaid/mermaid.min.js"></script>
+
+
+    <link rel="alternate" href="/atom.xml" title="DoEquitable" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>hot-redis | DoEquitable</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">coghost</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">never escape</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Celery/">Celery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/huey/">huey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/links/">links</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/luoo/">luoo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mrq/">mrq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">coghost</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">coghost</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">never escape</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><!-- %- partial('_partial/article', {post: page, index: false}) %> -->
+
+    <article id="post-python/tlibs/hot-redis" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171208/python/tlibs/hot-redis/" class="article-date">
+      <time datetime="2017-12-07T16:00:00.000Z" itemprop="datePublished">2017-12-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hot-redis
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="hot-redis"><a href="#hot-redis" class="headerlink" title="hot-redis"></a>hot-redis</h1><ul>
+<li><a href="https://github.com/stephenmcd/hot-redis" target="_blank" rel="external">github</a></li>
+</ul>
+<ul>
+<li>开发者: <a href="http://twitter.com/stephen_mcd" target="_blank" rel="external">Stephen McDonald</a></li>
+</ul>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p><code>HOT Redis</code>是<code>redis-py</code>的封装库. 它不需要使用<code>Redis</code>_指令直接操作客户端. 它模拟了 <code>python</code>内置的如 <code>lists, dicts, sets</code>等数据类型, 以及<code>Queue, threading和collections等模块</code>提供的<code>标准库类</code>复杂结构类型,  只需要操作这些类型便可以进行redis操作</p>
+<p>这些类型都由 Redis 支持, 可以在网络上进行<code>原子操作</code> – 关于对象的<code>原子操作</code>是<code>HOT redis</code>一个核心功能, 而这些都是由在 Redis 内部运行的 <code>Lua</code>_脚本来提供支持, 用于确保原子操作正常工作. </p>
+</blockquote>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">pip install -U hot-redis</div></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="入门-单机新建"><a href="#入门-单机新建" class="headerlink" title="入门: 单机新建"></a>入门: 单机新建</h3><blockquote>
+<p>HOT Redis 提供的任何一个类型, 都被尽量按照 python 内置类型来设计</p>
+<p>最大的不同在于 <code>__init__</code> 方法, HOT Redis 的<code>__init__</code> 方法可以接受一个初始值, 用来定义并初始化存储于Redis中的对象, 你需要指定一个 <code>key</code>, 当然也可以使用自动生成的 key, key 可以通过<code>key</code>属性来访问</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; from hot_redis import List</div><div class="line">&gt;&gt;&gt; my_list = List()</div><div class="line">&gt;&gt;&gt; my_list.key</div><div class="line"><span class="string">'93366bdb-90b2-4226-a52a-556f678af40e'</span></div><div class="line">&gt;&gt;&gt; my_list_with_key = List(key=<span class="string">"foo"</span>)</div><div class="line">&gt;&gt;&gt; my_list_with_key.key</div><div class="line"><span class="string">'foo'</span></div></pre></td></tr></table></figure>
+<h3 id="提高-多机交互"><a href="#提高-多机交互" class="headerlink" title="提高: 多机交互"></a>提高: 多机交互</h3><h4 id="步骤1-电脑A"><a href="#步骤1-电脑A" class="headerlink" title="步骤1: 电脑A"></a>步骤1: 电脑A</h4><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="comment"># A 初始化</span></div><div class="line">&gt;&gt;&gt; list_on_computer_a = List(key=<span class="string">"foo"</span>, initial=[<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>])</div></pre></td></tr></table></figure>
+<h4 id="步骤2-电脑B"><a href="#步骤2-电脑B" class="headerlink" title="步骤2: 电脑B"></a>步骤2: 电脑B</h4><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; list_on_computer_b = List(key=<span class="string">"foo"</span>)</div><div class="line">&gt;&gt;&gt; list_on_computer_b[:]  <span class="comment"># 命令等同于: LRANGE foo 0 -1</span></div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</div><div class="line">&gt;&gt;&gt; list_on_computer_b += [<span class="string">'d'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>]  <span class="comment"># 命令等同于: RPUSH foo d e f</span></div></pre></td></tr></table></figure>
+<h4 id="步骤3-电脑A"><a href="#步骤3-电脑A" class="headerlink" title="步骤3: 电脑A"></a>步骤3: 电脑A</h4><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"> &gt;&gt;&gt; list_on_computer_a[:]</div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>]</div><div class="line">&gt;&gt;&gt; <span class="string">'c'</span> <span class="keyword">in</span> list_on_computer_a  <span class="comment"># 可以像 python 内置 list 一样使用</span></div><div class="line">True</div><div class="line">&gt;&gt;&gt; list_on_computer_a.reverse()</div><div class="line">&gt;&gt;&gt; list_on_computer_a[:]</div><div class="line">[<span class="string">'f'</span>, <span class="string">'e'</span>, <span class="string">'d'</span>, <span class="string">'c'</span>, <span class="string">'b'</span>, <span class="string">'a'</span>]</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><blockquote>
+<p>默认情况下, HOT Redis 连接本机的<code>6379</code>端口</p>
+</blockquote>
+<h4 id="全局配置-所有对象使用同一配置"><a href="#全局配置-所有对象使用同一配置" class="headerlink" title="全局配置: 所有对象使用同一配置"></a>全局配置: 所有对象使用同一配置</h4><blockquote>
+<p>你可以在实例化 <code>所有HOT Redis对象</code>之前, 通过 <code>hot_redis.configure</code> 来指定连接的 <code>HOST,PORT</code>及其他授权信息</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; from hot_redis import configure</div><div class="line">&gt;&gt;&gt; configure(host=<span class="string">'myremotehost'</span>, port=6380)</div></pre></td></tr></table></figure>
+<h4 id="单一配置-为每一对象指定配置"><a href="#单一配置-为每一对象指定配置" class="headerlink" title="单一配置: 为每一对象指定配置"></a>单一配置: 为每一对象指定配置</h4><blockquote>
+<p>通过显式使用 <code>HotClient</code> 来创建, 并为每一对象指定 <code>HotClient</code></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; from hot_redis import HotClient, Queue</div><div class="line">&gt;&gt;&gt; client = HotClient(host=<span class="string">"myremotehost"</span>, port=6380)</div><div class="line">&gt;&gt;&gt; my_queue = Queue(client=client)</div></pre></td></tr></table></figure>
+<h3 id="事务支持"><a href="#事务支持" class="headerlink" title="事务支持"></a>事务支持</h3><blockquote>
+<p>由<code>MULTI和EXEC</code>指令来提供线程安全的事务支持</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; from hot_redis import List, Queue, transaction</div><div class="line">&gt;&gt;&gt; my_list = List(key=<span class="string">"foo"</span>)</div><div class="line">&gt;&gt;&gt; my_queue = Queue(key=<span class="string">"bar"</span>)</div><div class="line">&gt;&gt;&gt; with transaction():</div><div class="line">...     <span class="keyword">for</span> i <span class="keyword">in</span> range(20):</div><div class="line">...         my_list.append(i)</div><div class="line">...         my_queue.put(i)</div><div class="line"></div><div class="line"><span class="comment"># 其中所有的 append, put 会被合并到一条指令, 在事务上下文退出时, 一次执行</span></div></pre></td></tr></table></figure>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><blockquote>
+<p>HOT Redis 类型与 Python 类型的对应关系</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>HOT Redis</th>
+<th>Python</th>
+<th>Redis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>list</td>
+<td>list</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>set</td>
+<td>set</td>
+</tr>
+<tr>
+<td>Dict</td>
+<td>dict</td>
+<td>hash</td>
+</tr>
+<tr>
+<td>String</td>
+<td>string</td>
+<td>string</td>
+</tr>
+<tr>
+<td>ImmutableString</td>
+<td>string</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Int</td>
+<td>int</td>
+<td>int</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>float</td>
+<td>float</td>
+</tr>
+<tr>
+<td>Queue</td>
+<td>Queue.Queue</td>
+<td>list</td>
+</tr>
+<tr>
+<td>LifoQueue</td>
+<td>Queue.LifoQueue</td>
+<td>list</td>
+</tr>
+<tr>
+<td>SetQueue</td>
+<td>N/A</td>
+<td>list + set</td>
+</tr>
+<tr>
+<td>LifoSetQueue</td>
+<td>N/A</td>
+<td>list + set</td>
+</tr>
+<tr>
+<td>BoundedSemaphore</td>
+<td>threading.BoundedSemaphore</td>
+<td>list</td>
+</tr>
+<tr>
+<td>Semaphore</td>
+<td>threading.Semaphore</td>
+<td>list</td>
+</tr>
+<tr>
+<td>Lock</td>
+<td>threading.Lock</td>
+<td>list</td>
+</tr>
+<tr>
+<td>RLock</td>
+<td>threading.RLock</td>
+<td>list</td>
+</tr>
+<tr>
+<td>DefaultDict</td>
+<td>collections.DefaultDict</td>
+<td>hash</td>
+</tr>
+<tr>
+<td>MultiSet</td>
+<td>collections.Counter</td>
+<td>hash</td>
+</tr>
+</tbody>
+</table>
+<h3 id="样例代码"><a href="#样例代码" class="headerlink" title="样例代码"></a>样例代码</h3><blockquote>
+<p>环境: python 3.6</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># redis 连接配置</span></div><div class="line">redis_conf = &#123;</div><div class="line">  <span class="string">'host'</span>: <span class="string">'localhost'</span>,</div><div class="line">  <span class="string">'port'</span>: <span class="number">6379</span>,</div><div class="line">  <span class="string">'password'</span>: <span class="string">'123456'</span>,</div><div class="line">  <span class="string">'socket_timeout'</span>: <span class="number">3</span>,</div><div class="line">  <span class="string">'socket_connect_timeout'</span>: <span class="number">3</span>,</div><div class="line">  <span class="string">'db'</span>: <span class="number">0</span>,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hot_redis_test</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line"><span class="string">        测试 hot redis 常用功能</span></div><div class="line"><span class="string">    :return:</span></div><div class="line"><span class="string">    """</span></div><div class="line">    <span class="keyword">import</span> hot_redis <span class="keyword">as</span> rds</div><div class="line">    <span class="keyword">import</span> redis</div><div class="line"></div><div class="line">    rdb_out = rds.HotClient(**redis_conf)</div><div class="line"></div><div class="line">    rd = redis.StrictRedis(**redis_conf)</div><div class="line">    clear = <span class="keyword">True</span></div><div class="line">    dat = &#123;</div><div class="line">        <span class="string">'base'</span>: <span class="number">10</span>,</div><div class="line">        <span class="string">'crx'</span>: <span class="number">2</span>,</div><div class="line">        <span class="string">'jobbole'</span>: <span class="number">1</span>,</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># 初始化一个字典</span></div><div class="line">    _dict = rds.Dict(client=rdb_out, key=<span class="string">'ig.dict'</span>)</div><div class="line">    <span class="comment"># 更新, 自动写入 redis</span></div><div class="line">    _dict[<span class="string">'fns'</span>] = dat</div><div class="line"></div><div class="line">    <span class="comment"># 删除字典</span></div><div class="line">    <span class="keyword">if</span> clear:</div><div class="line">        _dict.clear()</div><div class="line"></div><div class="line">    <span class="comment"># 测试 list</span></div><div class="line">    _list = rds.List(client=rdb_out, key=<span class="string">'ig.list'</span>)</div><div class="line">    _list += list(dat.keys())</div><div class="line"></div><div class="line">    <span class="keyword">if</span> clear:</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(_list)):</div><div class="line">            _list.pop()</div><div class="line"></div><div class="line">    _string = rds.String(client=rdb_out,</div><div class="line">                         key=<span class="string">'ig.string'</span>,</div><div class="line">                         initial=<span class="string">','</span>.join([str(_) <span class="keyword">for</span> _ <span class="keyword">in</span> dat.keys()])</div><div class="line">                         )</div><div class="line">    <span class="keyword">if</span> clear:</div><div class="line">        rd.delete(<span class="string">'ig.string'</span>)</div></pre></td></tr></table></figure>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><ul>
+<li><a href="https://github.com/andymccurdy/redis-py" target="_blank" rel="external"><code>redis-py</code></a></li>
+<li><a href="http://redis.io" target="_blank" rel="external"><code>Redis</code></a></li>
+<li><a href="http://www.lua.org/" target="_blank" rel="external"><code>Lua</code></a></li>
+<li><a href="https://kouio.com" target="_blank" rel="external"><code>Kouio RSS reader</code></a></li>
+<li><a href="http://www.pip-installer.org/" target="_blank" rel="external"><code>pip</code></a></li>
+<li><a href="http://blog.jupo.org/2013/06/12/bitwise-lua-operations-in-redis/" target="_blank" rel="external"><code>Bitwise Lua Operations in Redis</code></a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/20171208/python/tlibs/hot-redis/">hot-redis</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">coghost</a></p>
+        <p><span>发布时间:</span>2017-12-08, 00:00:00</p>
+        <p><span>最后更新:</span>2017-12-13, 11:18:19</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/20171208/python/tlibs/hot-redis/" title="hot-redis">http://doequitable.com/20171208/python/tlibs/hot-redis/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://doequitable.com/20171208/python/tlibs/hot-redis/　　作者: coghost" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20171213/python/tlibs/huey/">
+                    huey
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/20171018/luoo.net/index/">
+                    index page
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hot-redis"><span class="toc-text">hot-redis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#入门-单机新建"><span class="toc-text">入门: 单机新建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提高-多机交互"><span class="toc-text">提高: 多机交互</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤1-电脑A"><span class="toc-text">步骤1: 电脑A</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤2-电脑B"><span class="toc-text">步骤2: 电脑B</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤3-电脑A"><span class="toc-text">步骤3: 电脑A</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#全局配置-所有对象使用同一配置"><span class="toc-text">全局配置: 所有对象使用同一配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单一配置-为每一对象指定配置"><span class="toc-text">单一配置: 为每一对象指定配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务支持"><span class="toc-text">事务支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据类型"><span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#样例代码"><span class="toc-text">样例代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链接"><span class="toc-text">链接</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+        <section class="youyan" id="comments">
+    <script>
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://v2.uyan.cc/code/uyan.js?uid=2129336';
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+    <div id="uyan_frame"></div>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/20171213/python/tlibs/huey/" title="上一篇: huey">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/20171018/luoo.net/index/" title="下一篇: index page">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20171220/tools/mq/rabbitmq/">RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171220/python/tlibs/celery/celery_step2/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171219/python/tlibs/toapi/">toapi</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/celery/celery_first_step/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/mrq/">MRQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/huey/">huey</a></li><li class="post-list-item"><a class="post-list-link" href="/20171208/python/tlibs/hot-redis/">hot-redis</a></li><li class="post-list-item"><a class="post-list-link" href="/20171018/luoo.net/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170928/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/coding/时间复杂度/">时间复杂度</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/leetcode/two-sum-(01)/">two sum (01)</a></li><li class="post-list-item"><a class="post-list-link" href="/20170504/tools/git/git.learn/">git 使用入门</a></li><li class="post-list-item"><a class="post-list-link" href="/20170405/tools/links/">useful links</a></li><li class="post-list-item"><a class="post-list-link" href="/20161220/tools/hexo/Hexo/">Hexo 使用</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 coghost
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  vundefined">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="coghost" />
+
+
+
+<meta name="description" content="algorithms 时间复杂度参考链接 数学公式  CSDN.zolalad">
+<meta name="keywords" content="algorithms">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时间复杂度">
+<meta property="og:url" content="http://doequitable.com/20170925/coding/时间复杂度/index.html">
+<meta property="og:site_name" content="DoEquitable">
+<meta property="og:description" content="algorithms 时间复杂度参考链接 数学公式  CSDN.zolalad">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-13T03:25:32.710Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="时间复杂度">
+<meta name="twitter:description" content="algorithms 时间复杂度参考链接 数学公式  CSDN.zolalad">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/mermaid/mermaid.css">
+<script src="/mermaid/mermaid.min.js"></script>
+
+
+    <link rel="alternate" href="/atom.xml" title="DoEquitable" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>时间复杂度 | DoEquitable</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">coghost</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">never escape</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Celery/">Celery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/huey/">huey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/links/">links</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/luoo/">luoo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mrq/">mrq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">coghost</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">coghost</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">never escape</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><!-- %- partial('_partial/article', {post: page, index: false}) %> -->
+
+    <article id="post-coding/时间复杂度" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20170925/coding/时间复杂度/" class="article-date">
+      <time datetime="2017-09-24T16:00:00.000Z" itemprop="datePublished">2017-09-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      时间复杂度
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/algorithms/">algorithms</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithms/">algorithms</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="algorithms-时间复杂度"><a href="#algorithms-时间复杂度" class="headerlink" title="algorithms 时间复杂度"></a>algorithms 时间复杂度</h1><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><p><a href="http://blog.csdn.net/zdk930519/article/details/54137476" target="_blank" rel="external">数学公式</a></p>
+</li>
+<li><p><a href="http://blog.csdn.net/zolalad/article/details/11848739" target="_blank" rel="external">CSDN.zolalad</a></p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="python-数据结构时间复杂度"><a href="#python-数据结构时间复杂度" class="headerlink" title="python 数据结构时间复杂度"></a>python 数据结构时间复杂度</h2><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>平均情况</th>
+<th>最坏情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>copy</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>append</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>取元素 list[i]</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>修改元素</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>删除元素</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>遍历</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>取切片</td>
+<td>O(k)</td>
+<td>O(k)</td>
+</tr>
+<tr>
+<td>删除切片</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>修改切片</td>
+<td>O(n+k)</td>
+<td>O(n+k)</td>
+</tr>
+<tr>
+<td>extend</td>
+<td>O(k)</td>
+<td>O(k)</td>
+</tr>
+<tr>
+<td>排序</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>列表乘法</td>
+<td>O(nk)</td>
+<td>O(nk)</td>
+</tr>
+<tr>
+<td>x in s</td>
+<td>O(n)</td>
+<td></td>
+</tr>
+<tr>
+<td>min(s), max(s)</td>
+<td>O(n)</td>
+<td></td>
+</tr>
+<tr>
+<td>计算长度</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>平均情况</th>
+<th>最坏情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x in s</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>并集 s\</td>
+<td>t</td>
+<td>O(len(s) + len(t))</td>
+<td></td>
+</tr>
+<tr>
+<td>交集 s&amp;t</td>
+<td>O(min(len(s), len(t)))</td>
+<td>O(len(s) * len(t))</td>
+</tr>
+<tr>
+<td>差集 s-t</td>
+<td>O(len(s))</td>
+<td></td>
+</tr>
+<tr>
+<td>s.difference_update(t)</td>
+<td>O(len(t))</td>
+<td></td>
+</tr>
+<tr>
+<td>对称差集 s^t</td>
+<td>O(len(s))</td>
+<td>O(len(s) * len(t))</td>
+</tr>
+<tr>
+<td>s.symmetric_difference_update(t)</td>
+<td>O(len(t))</td>
+<td>O(len(s) * len(t))</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>求差集 与 更新为差集的运算时间复杂度并不相同! <code>差集</code>是生成新的集合, <code>更新为差集</code>是将<code>t</code>中的元素从<code>s</code>移除, 因此可以根据是否需要新集合来选择合适方法</p>
+</blockquote>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><table>
+<thead>
+<tr>
+<th><strong>操作</strong></th>
+<th><strong>平均情况</strong></th>
+<th><strong>最坏情况</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>copy</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>get</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>遍历</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h2><h3 id="1-O-1"><a href="#1-O-1" class="headerlink" title="1. O(1)"></a>1. O(1)</h3><ul>
+<li>demo code</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">t = i</div><div class="line">i = j</div><div class="line">j = t</div></pre></td></tr></table></figure>
+<ul>
+<li><p>说明</p>
+<blockquote>
+<p>上述三条单个语句的频度均为<code>1</code>, 程序段的执行时间是与问题规模<code>n</code>无关的常数. 算法的时间复杂度为常数阶, 记作<code>T(n) = O(1)</code>.</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>注意</p>
+<blockquote>
+<p>如果算法的执行时间不随着问题规模<code>n</code>的增加而增长, 即使算法中有上千条语句, 执行时间也不过一个较大的常数, 故此类算法的时间复杂度为<code>O(1)</code></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>结论: $T(n) = O(1)$</li>
+</ul>
+<h3 id="2-O-n²"><a href="#2-O-n²" class="headerlink" title="2. O(n²)"></a>2. O(<strong>n²</strong>)</h3><p>$$<br>T(n) = O(n²)<br>$$</p>
+<ul>
+<li>demo code 1</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">sum = <span class="number">0</span>	<span class="comment"># 1次</span></div><div class="line">n = <span class="number">100</span>	<span class="comment"># 1次</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):	<span class="comment"># n+1次</span></div><div class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(n):<span class="comment"># n²次</span></div><div class="line">    sum += <span class="number">1</span>		<span class="comment"># n²次</span></div><div class="line">    </div><div class="line"><span class="comment"># Θ(2n²+n+1)=n²（Θ即：去低阶项，去掉常数项，去掉高阶项的常参得到），所以T(n)==O(n²)</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>解释</p>
+<blockquote>
+<p>Θ(2n²+n+1)=n²（Θ即：去低阶项，去掉常数项，去掉高阶项的常参得到），所以T(n)==O(n²)</p>
+</blockquote>
+<ul>
+<li>结论: $\Theta(2n^2 + n + 1) = n^2 {\rightarrow}T(n) = O(n^2)$</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>demo code 2</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">n = <span class="number">100</span>	<span class="comment"># 1</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n): <span class="comment"># n</span></div><div class="line">  y += <span class="number">1</span>	<span class="comment"># 1</span></div><div class="line">  i += <span class="number">1</span>	<span class="comment"># 1</span></div><div class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">2</span>*n):	<span class="comment"># (n-1)*(2n+1) =&gt; 2n² -n -1</span></div><div class="line">    j += <span class="number">1</span>	<span class="comment"># 1</span></div><div class="line">    x += <span class="number">1</span>	<span class="comment"># 1</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>说明</p>
+<blockquote>
+<p>一般情况下, 只需要考虑循环体中语句的执行次数, 忽略终值判别, 控制转移等, 当由若干循环语句时, 算法的时间复杂度是由嵌套导数最多的循环语句中最内层语句的频度<code>f(n)</code>决定的</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="3-O-n"><a href="#3-O-n" class="headerlink" title="3. O(n)"></a>3. O(n)</h3><ul>
+<li>demo code</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">a = <span class="number">0</span>	<span class="comment"># 1</span></div><div class="line">b = <span class="number">1</span>	<span class="comment"># 1</span></div><div class="line">n = <span class="number">100</span>	<span class="comment"># 1</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):	<span class="comment"># n</span></div><div class="line">  a, b = b, a	<span class="comment"># 1</span></div><div class="line">  i += <span class="number">1</span>	<span class="comment"># 1</span></div></pre></td></tr></table></figure>
+<ul>
+<li>说明</li>
+</ul>
+<p>$$<br>T(n) = 3 + n + 2(n - 1) = 3n + 1 = O(n)<br>$$</p>
+<h3 id="4-O-log-2n"><a href="#4-O-log-2n" class="headerlink" title="4. O($log_2n$)"></a>4. O($log_2n$)</h3><ul>
+<li>demo code</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">i = <span class="number">1</span>	<span class="comment"># ①</span></div><div class="line"><span class="keyword">while</span> i &lt; n:</div><div class="line">  i = i * <span class="number">2</span>	<span class="comment"># ②</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>说明</p>
+<blockquote>
+<p>语句1频度为1<br>语句2为 f(n), 则 2^f(n) &lt;= n; f(n) &lt;= log~2~n<br>取最大值 f(n)=log~2~n</p>
+</blockquote>
+</li>
+<li><p>结论: $T(n) = O(log_2n)$</p>
+</li>
+</ul>
+<h3 id="5-O-n-3"><a href="#5-O-n-3" class="headerlink" title="5. O($n^3$)"></a>5. O($n^3$)</h3><ul>
+<li>demo code</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">  i += <span class="number">1</span></div><div class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(i):</div><div class="line">    j += <span class="number">1</span></div><div class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(j):</div><div class="line">      k += <span class="number">1</span></div><div class="line">      x += <span class="number">1</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>说明</p>
+<blockquote>
+<p>简单可以认为<code>循环次数</code>代表了时间复杂度 <code>O(n³)</code></p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/20170925/coding/时间复杂度/">时间复杂度</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">coghost</a></p>
+        <p><span>发布时间:</span>2017-09-25, 00:00:00</p>
+        <p><span>最后更新:</span>2017-12-13, 11:25:32</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/20170925/coding/时间复杂度/" title="时间复杂度">http://doequitable.com/20170925/coding/时间复杂度/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://doequitable.com/20170925/coding/时间复杂度/　　作者: coghost" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20170928/index/">
+                    index page
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/20170925/leetcode/two-sum-(01)/">
+                    two sum (01)
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#algorithms-时间复杂度"><span class="toc-text">algorithms 时间复杂度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python-数据结构时间复杂度"><span class="toc-text">python 数据结构时间复杂度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#列表"><span class="toc-text">列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字典"><span class="toc-text">字典</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例分析"><span class="toc-text">实例分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-O-1"><span class="toc-text">1. O(1)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-O-n²"><span class="toc-text">2. O(n²)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-O-n"><span class="toc-text">3. O(n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-O-log-2n"><span class="toc-text">4. O($log_2n$)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-O-n-3"><span class="toc-text">5. O($n^3$)</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+        <section class="youyan" id="comments">
+    <script>
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://v2.uyan.cc/code/uyan.js?uid=2129336';
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+    <div id="uyan_frame"></div>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/20170928/index/" title="上一篇: index page">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/20170925/leetcode/two-sum-(01)/" title="下一篇: two sum (01)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20171220/tools/mq/rabbitmq/">RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171220/python/tlibs/celery/celery_step2/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171219/python/tlibs/toapi/">toapi</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/celery/celery_first_step/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/mrq/">MRQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/huey/">huey</a></li><li class="post-list-item"><a class="post-list-link" href="/20171208/python/tlibs/hot-redis/">hot-redis</a></li><li class="post-list-item"><a class="post-list-link" href="/20171018/luoo.net/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170928/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/coding/时间复杂度/">时间复杂度</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/leetcode/two-sum-(01)/">two sum (01)</a></li><li class="post-list-item"><a class="post-list-link" href="/20170504/tools/git/git.learn/">git 使用入门</a></li><li class="post-list-item"><a class="post-list-link" href="/20170405/tools/links/">useful links</a></li><li class="post-list-item"><a class="post-list-link" href="/20161220/tools/hexo/Hexo/">Hexo 使用</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 coghost
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  vundefined">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

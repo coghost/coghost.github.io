@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="coghost" />
+
+
+
+<meta name="description" content="Huey简介一个轻量级备选库 使用 python 编写 唯一依赖 Python Redis client  支持 多进程, 多线程或者 greenlet task 任务模型 可在指定时间或者延迟后执行的计划任务 像crontab一样定期重复执行 自动重试失败任务 存储任务结果  安装pip  $ pip install huey 安装并自动启动数据库 SQLite/Redis支持 $ pip in">
+<meta name="keywords" content="python,huey,队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="huey">
+<meta property="og:url" content="http://doequitable.com/20171213/python/tlibs/huey/index.html">
+<meta property="og:site_name" content="DoEquitable">
+<meta property="og:description" content="Huey简介一个轻量级备选库 使用 python 编写 唯一依赖 Python Redis client  支持 多进程, 多线程或者 greenlet task 任务模型 可在指定时间或者延迟后执行的计划任务 像crontab一样定期重复执行 自动重试失败任务 存储任务结果  安装pip  $ pip install huey 安装并自动启动数据库 SQLite/Redis支持 $ pip in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://doequitable.com/20171213/python/tlibs/huey/intro.png">
+<meta property="og:updated_time" content="2017-12-14T02:18:33.560Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="huey">
+<meta name="twitter:description" content="Huey简介一个轻量级备选库 使用 python 编写 唯一依赖 Python Redis client  支持 多进程, 多线程或者 greenlet task 任务模型 可在指定时间或者延迟后执行的计划任务 像crontab一样定期重复执行 自动重试失败任务 存储任务结果  安装pip  $ pip install huey 安装并自动启动数据库 SQLite/Redis支持 $ pip in">
+<meta name="twitter:image" content="http://doequitable.com/20171213/python/tlibs/huey/intro.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/mermaid/mermaid.css">
+<script src="/mermaid/mermaid.min.js"></script>
+
+
+    <link rel="alternate" href="/atom.xml" title="DoEquitable" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>huey | DoEquitable</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">coghost</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">never escape</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Celery/">Celery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/huey/">huey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/links/">links</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/luoo/">luoo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mrq/">mrq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">coghost</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">coghost</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">never escape</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><!-- %- partial('_partial/article', {post: page, index: false}) %> -->
+
+    <article id="post-python/tlibs/huey" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171213/python/tlibs/huey/" class="article-date">
+      <time datetime="2017-12-12T16:00:00.000Z" itemprop="datePublished">2017-12-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      huey
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/huey/">huey</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/队列/">队列</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Huey"><a href="#Huey" class="headerlink" title="Huey"></a>Huey</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="一个轻量级备选库"><a href="#一个轻量级备选库" class="headerlink" title="一个轻量级备选库"></a>一个轻量级备选库</h3><ul>
+<li>使用 python 编写</li>
+<li>唯一依赖 <code>Python Redis client</code></li>
+</ul>
+<h3 id="支持"><a href="#支持" class="headerlink" title="支持"></a>支持</h3><ul>
+<li>多进程, 多线程或者 <a href="https://greenlet.readthedocs.io/en/latest/" target="_blank" rel="external"><code>greenlet task</code></a> 任务模型</li>
+<li>可在指定时间或者延迟后执行的计划任务</li>
+<li>像<code>crontab</code>一样定期重复执行</li>
+<li>自动重试失败任务</li>
+<li>存储任务结果</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>pip </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install huey</div></pre></td></tr></table></figure>
+<p>安装并自动启动数据库 <code>SQLite/Redis</code><backend>支持</backend></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install huey[backends]</div></pre></td></tr></table></figure>
+<p>除了标准库依赖外, 只需要 <code>redis</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install redis</div></pre></td></tr></table></figure>
+<p>如果你的任务是 <code>IO密集型</code> 而不是 <code>CPU密集型</code> <a href="http://blog.csdn.net/q_l_s/article/details/51538039" target="_blank" rel="external">参考IO/CPU bound</a>, 那么可以考虑使用 <code>greenlet</code> 工作类型. </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ pip install gevent</div></pre></td></tr></table></figure>
+<p>使用 git 安装最新版本</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/coleifer/huey.git</div><div class="line">$ <span class="built_in">cd</span> huey</div><div class="line">$ python setup.py install</div></pre></td></tr></table></figure>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><h3 id="向导"><a href="#向导" class="headerlink" title="向导"></a>向导</h3><p>使用<code>huey</code>需要注意以下3点</p>
+<ul>
+<li>生产者<code>the produces(s)</code> : i.e. web应用 </li>
+<li>消费者<code>the consumer(s)</code> </li>
+<li>任务队列存储<code>queue</code> : e.g. Redis</li>
+</ul>
+<p><img src="/20171213/python/tlibs/huey/intro.png" alt="intro"></p>
+<p>如图所示的这三个进程</p>
+<p>左侧是生产者, 右上是消费者, 右下是队列</p>
+<h3 id="建议代码目录结构"><a href="#建议代码目录结构" class="headerlink" title="建议代码目录结构"></a><code>建议</code>代码目录结构</h3><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── __init__.py</div><div class="line">├── app.py	<span class="comment"># producer 生产者</span></div><div class="line">├── config.py	<span class="comment"># 队列存储配置文件</span></div><div class="line">└── tasks.py	<span class="comment"># 任务, 消费者</span></div></pre></td></tr></table></figure>
+<p>首先是配置你的任务队列. 消费者需要一个指明所用后端<code>Huey实例</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># config.py</span></div><div class="line"><span class="keyword">from</span> huey <span class="keyword">import</span> RedisHuey</div><div class="line"></div><div class="line">huey = RedisHuey()</div></pre></td></tr></table></figure>
+<p><code>huey</code>对象封装了队列, 而这个队列用来负责存储和收取信息, 你的应用代码中的<code>huey</code>实例使用了后端来协调函数调用. </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey <span class="comment"># import the huey we instantiated in config.py</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 通过装饰器, 可以简单的实现 消费者消费 功能</span></div><div class="line"><span class="meta">@huey.task()</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_beans</span><span class="params">(num)</span>:</span></div><div class="line">    print(<span class="string">'-- counted %s beans --'</span> % num)</div></pre></td></tr></table></figure>
+<p>上述例子说明了实现<code>消费者</code>的最简方法, 通过<code>装饰器</code>. 当<code>count_beans</code>被 <code>main</code>调用时, 只要<code>enqueueing</code>完成对函数的调用后会立即返回,而不是等待<code>count_beans</code>的执行结果,无论<code>count_beans</code>是否有耗时操作.</p>
+<p>我们的主执行程序很简单, 只需要导入配置和任务即可. 这是为了确保当我们在通过指向配置运行<code>consumer</code>时, 任务也被导入并加载到了内存中.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># main.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey  <span class="comment"># import our "huey" object 需要保证导入名字为 huey, 否则会报错</span></div><div class="line"><span class="keyword">from</span> tasks <span class="keyword">import</span> count_beans  <span class="comment"># import our task</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    beans = raw_input(<span class="string">'How many beans? '</span>)</div><div class="line">    count_beans(int(beans))</div><div class="line">    print(<span class="string">'Enqueued job to count %s beans'</span> % beans)</div></pre></td></tr></table></figure>
+<h3 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h3><ul>
+<li>注意:<code>main.huey</code>表示 <code>main.py</code> 中导入 的 <code>huey 实例</code></li>
+<li>如果 <code>from config import huey as mmhuey</code>, 则运行脚本是 <code>huey_consumer.py main.mmhuey</code></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 消费者, 消费队列 </span></div><div class="line">huey_consumer.py main.huey</div><div class="line"></div><div class="line"><span class="comment"># 生产者, 压入队列</span></div><div class="line">python main.py</div></pre></td></tr></table></figure>
+<h3 id="任务结果"><a href="#任务结果" class="headerlink" title="任务结果"></a>任务结果</h3><p>上述任务描述了 <code>只发不收</code> 的场景, 但是如果你需要任务的返回结果呢? 为了获取结果, 你只需要在你的任务中返回即可.</p>
+<blockquote>
+<p>注意: 存储结果会浪费大量空间, 如果结果不是必须, 请返回为 None, 或者在 <code>Huey</code>实例中设置 <code>result_store=False</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@huey.task()</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_beans</span><span class="params">(num)</span>:</span></div><div class="line">    print(<span class="string">'-- counted %s beans --'</span> % num)</div><div class="line">    <span class="keyword">return</span> <span class="string">'Counted %s beans'</span> % num</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># main.py</span></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey  <span class="comment"># import our "huey" object 需要保证导入名字为 huey, 否则会报错</span></div><div class="line"><span class="keyword">from</span> tasks <span class="keyword">import</span> count_beans  <span class="comment"># import our task</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    beans = raw_input(<span class="string">'How many beans? '</span>)</div><div class="line">    rs = count_beans(int(beans))</div><div class="line">    print(<span class="string">'Enqueued job to count %s beans'</span> % beans)</div><div class="line">    print(rs()) <span class="comment"># 由于使用异步队列, 故与使用显示调用的 rs.get() 一样都是 None</span></div><div class="line">    <span class="comment"># 如果需要获取结果 需要使用 rs(blocking=True)</span></div></pre></td></tr></table></figure>
+<h3 id="在将来某个时刻运行"><a href="#在将来某个时刻运行" class="headerlink" title="在将来某个时刻运行"></a>在将来某个时刻运行</h3><blockquote>
+<p>需要在 main 中调用时, 启用 schedule 来实现</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># main.py</span></div><div class="line"><span class="comment"># 建立1个10s后执行的任务</span></div><div class="line">count_beans.schedule(args=(<span class="number">100</span>,), delay=<span class="number">10</span>)</div><div class="line"></div><div class="line"><span class="comment"># 建立一个 60s 后运行的任务</span></div><div class="line">count_beans.schedule(args=(<span class="number">100</span>,),</div><div class="line">                     eta=datetime.datetime.now() + datetime.timedelta(seconds=<span class="number">60</span>))</div></pre></td></tr></table></figure>
+<h3 id="失败重试机制"><a href="#失败重试机制" class="headerlink" title="失败重试机制"></a>失败重试机制</h3><blockquote>
+<p>直接在 tasks 中使用装饰器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="meta">@huey.task(retries=3)</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">try_thrice</span><span class="params">()</span>:</span></div><div class="line">    print(<span class="string">'trying....'</span>)</div><div class="line">    <span class="keyword">raise</span> Exception(<span class="string">'nope'</span>)</div></pre></td></tr></table></figure>
+<h3 id="计划执行任务"><a href="#计划执行任务" class="headerlink" title="计划执行任务"></a>计划执行任务</h3><blockquote>
+<p>使用 crontab 来实现.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tasks.py</span></div><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div><div class="line"><span class="keyword">from</span> huey <span class="keyword">import</span> crontab</div><div class="line"></div><div class="line"><span class="keyword">from</span> config <span class="keyword">import</span> huey</div><div class="line"></div><div class="line"><span class="meta">@huey.periodic_task(crontab(minute='*'))</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_time</span><span class="params">()</span>:</span></div><div class="line">    print(datetime.now())</div></pre></td></tr></table></figure>
+<h3 id="取消-暂停任务"><a href="#取消-暂停任务" class="headerlink" title="取消/暂停任务"></a>取消/暂停任务</h3><h4 id="普通任务"><a href="#普通任务" class="headerlink" title="普通任务"></a>普通任务</h4><blockquote>
+<p>取消单个实例</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">res = count_beans(<span class="number">1024</span>)</div><div class="line"><span class="comment"># 取消,尚未执行的任务</span></div><div class="line">res.revoke()</div><div class="line"><span class="comment"># 当然也可以重新恢复</span></div><div class="line">res.restore()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>取消给定任务的所有实例</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 撤消</span></div><div class="line">count_beans.revoke()</div><div class="line"><span class="comment"># 恢复</span></div><div class="line">count_beans.restore()</div></pre></td></tr></table></figure>
+<h4 id="定期任务"><a href="#定期任务" class="headerlink" title="定期任务"></a>定期任务</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">@huey.periodic_task(crontab(minute='*'))</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_time</span><span class="params">()</span>:</span></div><div class="line">    print(datetime.now())</div></pre></td></tr></table></figure>
+<blockquote>
+<p>停止一次</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">print_time.revoke(revoke_once=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>停止到直到某个时间</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># prevent printing time for 10 minutes</span></div><div class="line">now = datetime.datetime.utcnow()</div><div class="line">in_10 = now + datetime.timedelta(seconds=<span class="number">600</span>)</div><div class="line"></div><div class="line">print_time.revoke(revoke_until=in_10)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>永远停止</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">print_time.revoke()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>随时恢复</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">print_time.restore()</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/20171213/python/tlibs/huey/">huey</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">coghost</a></p>
+        <p><span>发布时间:</span>2017-12-13, 00:00:00</p>
+        <p><span>最后更新:</span>2017-12-14, 10:18:33</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/20171213/python/tlibs/huey/" title="huey">http://doequitable.com/20171213/python/tlibs/huey/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://doequitable.com/20171213/python/tlibs/huey/　　作者: coghost" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20171213/python/tlibs/mrq/">
+                    MRQ
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/20171208/python/tlibs/hot-redis/">
+                    hot-redis
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Huey"><span class="toc-text">Huey</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一个轻量级备选库"><span class="toc-text">一个轻量级备选库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持"><span class="toc-text">支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始使用"><span class="toc-text">开始使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#向导"><span class="toc-text">向导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建议代码目录结构"><span class="toc-text">建议代码目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行测试"><span class="toc-text">运行测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#任务结果"><span class="toc-text">任务结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在将来某个时刻运行"><span class="toc-text">在将来某个时刻运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#失败重试机制"><span class="toc-text">失败重试机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计划执行任务"><span class="toc-text">计划执行任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取消-暂停任务"><span class="toc-text">取消/暂停任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#普通任务"><span class="toc-text">普通任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#定期任务"><span class="toc-text">定期任务</span></a></li></ol></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+        <section class="youyan" id="comments">
+    <script>
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://v2.uyan.cc/code/uyan.js?uid=2129336';
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+    <div id="uyan_frame"></div>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/20171213/python/tlibs/mrq/" title="上一篇: MRQ">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/20171208/python/tlibs/hot-redis/" title="下一篇: hot-redis">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20171220/tools/mq/rabbitmq/">RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171220/python/tlibs/celery/celery_step2/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171219/python/tlibs/toapi/">toapi</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/celery/celery_first_step/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/mrq/">MRQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/huey/">huey</a></li><li class="post-list-item"><a class="post-list-link" href="/20171208/python/tlibs/hot-redis/">hot-redis</a></li><li class="post-list-item"><a class="post-list-link" href="/20171018/luoo.net/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170928/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/coding/时间复杂度/">时间复杂度</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/leetcode/two-sum-(01)/">two sum (01)</a></li><li class="post-list-item"><a class="post-list-link" href="/20170504/tools/git/git.learn/">git 使用入门</a></li><li class="post-list-item"><a class="post-list-link" href="/20170405/tools/links/">useful links</a></li><li class="post-list-item"><a class="post-list-link" href="/20161220/tools/hexo/Hexo/">Hexo 使用</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 coghost
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  vundefined">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

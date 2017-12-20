@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="coghost" />
+
+
+
+<meta name="description" content="Celery: First StepCelery是一个功能完备的任务队列, 可以方便的与其他语言集成, 可以放心在生成环境中使用.  选择安装一个消息队列 安装Celery并创建任务 启动worker调用tasks 追踪监视任务的不同状态,监测返回信息  参考链接 First Steps  消息队列比较 ​   选择BrokerCelery需要接收和发送消息,通常情况下使用独立的消息队列 Rabb">
+<meta name="keywords" content="python,分布式,Celery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Celery First Step">
+<meta property="og:url" content="http://doequitable.com/20171213/python/tlibs/celery/celery_first_step/index.html">
+<meta property="og:site_name" content="DoEquitable">
+<meta property="og:description" content="Celery: First StepCelery是一个功能完备的任务队列, 可以方便的与其他语言集成, 可以放心在生成环境中使用.  选择安装一个消息队列 安装Celery并创建任务 启动worker调用tasks 追踪监视任务的不同状态,监测返回信息  参考链接 First Steps  消息队列比较 ​   选择BrokerCelery需要接收和发送消息,通常情况下使用独立的消息队列 Rabb">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-20T04:30:56.140Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Celery First Step">
+<meta name="twitter:description" content="Celery: First StepCelery是一个功能完备的任务队列, 可以方便的与其他语言集成, 可以放心在生成环境中使用.  选择安装一个消息队列 安装Celery并创建任务 启动worker调用tasks 追踪监视任务的不同状态,监测返回信息  参考链接 First Steps  消息队列比较 ​   选择BrokerCelery需要接收和发送消息,通常情况下使用独立的消息队列 Rabb">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/mermaid/mermaid.css">
+<script src="/mermaid/mermaid.min.js"></script>
+
+
+    <link rel="alternate" href="/atom.xml" title="DoEquitable" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Celery First Step | DoEquitable</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">coghost</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">never escape</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Celery/">Celery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/algorithms/">algorithms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/huey/">huey</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/links/">links</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/luoo/">luoo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mq/">mq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mrq/">mrq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tools/">tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">coghost</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">coghost</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">never escape</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:illf@126.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><!-- %- partial('_partial/article', {post: page, index: false}) %> -->
+
+    <article id="post-python/tlibs/celery/celery_first_step" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/20171213/python/tlibs/celery/celery_first_step/" class="article-date">
+      <time datetime="2017-12-12T16:00:00.000Z" itemprop="datePublished">2017-12-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Celery First Step
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python/">python</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Celery/">Celery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Celery-First-Step"><a href="#Celery-First-Step" class="headerlink" title="Celery: First Step"></a>Celery: First Step</h1><p><code>Celery</code>是一个功能完备的任务队列, 可以方便的与其他语言集成, 可以放心在生成环境中使用.</p>
+<ul>
+<li>选择安装一个消息队列</li>
+<li>安装Celery并创建任务</li>
+<li>启动<code>worker</code>调用<code>tasks</code></li>
+<li>追踪监视任务的不同状态,监测返回信息</li>
+</ul>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><p><a href="http://docs.celeryproject.org/en/master/getting-started/first-steps-with-celery.html#first-steps" target="_blank" rel="external">First Steps</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/valor-xh/p/6348009.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">消息队列比较</a></p>
+<p>​</p>
+</li>
+</ul>
+<h2 id="选择Broker"><a href="#选择Broker" class="headerlink" title="选择Broker"></a>选择<code>Broker</code></h2><p>Celery需要接收和发送消息,通常情况下使用独立的消息队列</p>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><ul>
+<li><a href="http://www.rabbitmq.com/networking.html" target="_blank" rel="external">端口</a></li>
+</ul>
+<ul>
+<li><a href="https://hub.docker.com/_/rabbitmq/" target="_blank" rel="external"><code>dockerhub-rabbitmq</code></a></li>
+</ul>
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 使用 docker 环境</span></div><div class="line">docker pull rabbitmq</div></pre></td></tr></table></figure>
+<ul>
+<li>配置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">docker run \</div><div class="line">-tid \</div><div class="line">--hostname celery \</div><div class="line">--name rabbit \</div><div class="line">-p 15672:15672 \</div><div class="line">-p 5672:5672 \</div><div class="line">-p 5671:5671 \</div><div class="line">-p 15671:15671 \</div><div class="line">-e RABBITMQ_DEFAULT_USER=admin \</div><div class="line">-e RABBITMQ_DEFAULT_PASS=admin \</div><div class="line">-e RABBITMQ_ERLANG_COOKIE=<span class="string">'youcanneverseethis'</span> \</div><div class="line">-v &lt;YOUR_HOME_DIR&gt;/rabbitmq/:/var/lib/rabbitmq \</div><div class="line">rabbitmq:3-management</div></pre></td></tr></table></figure>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><p>可以使用, 但是在异常情况下可能会导致数据丢失</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a><a href="http://docs.celeryproject.org/en/master/getting-started/brokers/index.html#broker-overview" target="_blank" rel="external">其他</a></h3><h2 id="安装Celery"><a href="#安装Celery" class="headerlink" title="安装Celery"></a>安装<code>Celery</code></h2><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">pip install celery</div></pre></td></tr></table></figure>
+<h2 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h2><h3 id="tasks-py"><a href="#tasks-py" class="headerlink" title="tasks.py"></a><code>tasks.py</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 一个简单的任务, add, 并且返回两个数字的和</span></div><div class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</div><div class="line"></div><div class="line">app = Celery(<span class="string">'tasks'</span>,</div><div class="line">             backend=<span class="string">'redis://:123456@localhost:6380/0'</span>,</div><div class="line">             broker=<span class="string">'amqp://admin:admin@localhost:5672'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@app.task</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></div><div class="line">    <span class="keyword">return</span> x + y</div><div class="line">  </div><div class="line"><span class="meta">@app.task</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">d0</span><span class="params">(x, y)</span>:</span></div><div class="line">    time.sleep(<span class="number">100</span>)</div><div class="line">    <span class="keyword">return</span> x / y</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</div><div class="line">        res = d0.delay(<span class="number">16</span>, <span class="number">0</span>)</div><div class="line">        print(res.ready())</div></pre></td></tr></table></figure>
+<h2 id="运行Celery-worker-服务端"><a href="#运行Celery-worker-服务端" class="headerlink" title="运行Celery worker 服务端"></a>运行<code>Celery worker</code> 服务端</h2><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">celery -A tasks worker --loglevel=info</div></pre></td></tr></table></figure>
+<h2 id="执行任务"><a href="#执行任务" class="headerlink" title="执行任务"></a>执行任务</h2><h3 id="task端"><a href="#task端" class="headerlink" title="task端"></a>task端</h3><p>可以使用 <code>delay()</code> 来调用方法, 这是简便的<code>apply_async</code>方法</p>
+<ul>
+<li>返回的是 <code>AsyncResult</code> 实例</li>
+<li>可以检测任务状态, 等待任务结束, 获取返回值</li>
+<li>如果失败可以获取失败详情</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; from tasks import add</div><div class="line">&gt;&gt;&gt; add.delay(16, 4)</div><div class="line"></div><div class="line"><span class="comment"># 或者直接调用</span></div><div class="line">python3 tasks.py</div></pre></td></tr></table></figure>
+<h3 id="worker-log输出"><a href="#worker-log输出" class="headerlink" title="worker log输出"></a><code>worker</code> log输出</h3><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">[2017-12-19 18:31:34,401: INFO/MainProcess] Received task: tasks.add[16ae3321-a3e1-4498-9c92-cd1680d82fae]</div><div class="line">[2017-12-19 18:31:34,443: INFO/ForkPoolWorker-2] Task tasks.add[16ae3321-a3e1-4498-9c92-cd1680d82fae] succeeded <span class="keyword">in</span> 0.03918749799777288s: 20</div></pre></td></tr></table></figure>
+<h2 id="保存结果"><a href="#保存结果" class="headerlink" title="保存结果"></a>保存结果</h2><h3 id="使用RPC"><a href="#使用RPC" class="headerlink" title="使用RPC"></a>使用<code>RPC</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app = Celery(<span class="string">'tasks'</span>,</div><div class="line">             backend=<span class="string">'rpc://admin:admin@localhost/cc'</span>,</div><div class="line">             broker=<span class="string">'amqp://admin:admin@localhost:5672/cc'</span>)</div></pre></td></tr></table></figure>
+<h3 id="使用redis"><a href="#使用redis" class="headerlink" title="使用redis"></a>使用<code>redis</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app = Celery(<span class="string">'tasks'</span>,</div><div class="line">             backend=<span class="string">'redis://:123456@localhost:6380/0'</span>,</div><div class="line">             broker=<span class="string">'amqp://admin:admin@localhost:5672'</span>)</div></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>Celery并不需要太多配置, 通常情况下, 它需要一个<code>输入</code>和<code>输出</code>, <code>输入</code>需要连接到<code>broker</code>, 而输出可以连接到一个<code>backend</code>, 不过如果你需要进行更进一步的操作, 你可以使用<code>配置功能</code></p>
+<h3 id="启用方法"><a href="#启用方法" class="headerlink" title="启用方法"></a>启用方法</h3><ul>
+<li>直接在<code>app</code>中使用配置</li>
+<li>通过专用的配置模块</li>
+</ul>
+<h3 id="实例app"><a href="#实例app" class="headerlink" title="实例app"></a>实例<code>app</code></h3><blockquote>
+<p>单个赋值</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app.conf.task_serializer = <span class="string">'json'</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>多个</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">app.conf.update(</div><div class="line">    task_serializer=<span class="string">'json'</span>,</div><div class="line">    accept_content=[<span class="string">'json'</span>],  <span class="comment"># Ignore other content</span></div><div class="line">    result_serializer=<span class="string">'json'</span>,</div><div class="line">    timezone=<span class="string">'Europe/Oslo'</span>,</div><div class="line">    enable_utc=<span class="keyword">True</span>,</div><div class="line">)</div></pre></td></tr></table></figure>
+<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><blockquote>
+<p>启用</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># assume you have a `celeryconfig.py`</span></div><div class="line">app.config_from_object(<span class="string">'celeryconfig'</span>)	<span class="comment"># celeryconfig -&gt; celeryconfig.py</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>celeryconfig.py</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">broker_url = <span class="string">'pyamqp://'</span></div><div class="line">result_backend = <span class="string">'rpc://'</span></div><div class="line"></div><div class="line">task_serializer = <span class="string">'json'</span></div><div class="line">result_serializer = <span class="string">'json'</span></div><div class="line">accept_content = [<span class="string">'json'</span>]</div><div class="line">timezone = <span class="string">'Europe/Oslo'</span></div><div class="line">enable_utc = <span class="keyword">True</span></div></pre></td></tr></table></figure>
+<p>验证配置参数 <code>python3 -m celeryconfig</code></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li>优先级</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">task_routes = &#123;</div><div class="line">  <span class="string">'tasks.add'</span>: <span class="string">'low-priority'</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>rate/运行速度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">task_annotations = &#123;</div><div class="line">  <span class="string">'tasks.add'</span>: &#123;<span class="string">'rate_limit'</span>: <span class="string">'10/m'</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>当前如果你使用 <code>RabbitMQ/Redis</code> 作为<code>broker</code>, 你可以直接传递参数到任务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">$ celery -A tasks control rate_limit tasks.add 10/m</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/20171213/python/tlibs/celery/celery_first_step/">Celery First Step</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">coghost</a></p>
+        <p><span>发布时间:</span>2017-12-13, 00:00:00</p>
+        <p><span>最后更新:</span>2017-12-20, 12:30:56</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/20171213/python/tlibs/celery/celery_first_step/" title="Celery First Step">http://doequitable.com/20171213/python/tlibs/celery/celery_first_step/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://doequitable.com/20171213/python/tlibs/celery/celery_first_step/　　作者: coghost" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/20171219/python/tlibs/toapi/">
+                    toapi
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/20171213/python/tlibs/mrq/">
+                    MRQ
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Celery-First-Step"><span class="toc-text">Celery: First Step</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择Broker"><span class="toc-text">选择Broker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ"><span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis"><span class="toc-text">Redis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Celery"><span class="toc-text">安装Celery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序"><span class="toc-text">程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tasks-py"><span class="toc-text">tasks.py</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行Celery-worker-服务端"><span class="toc-text">运行Celery worker 服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行任务"><span class="toc-text">执行任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#task端"><span class="toc-text">task端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#worker-log输出"><span class="toc-text">worker log输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#保存结果"><span class="toc-text">保存结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用RPC"><span class="toc-text">使用RPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用redis"><span class="toc-text">使用redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#启用方法"><span class="toc-text">启用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例app"><span class="toc-text">实例app</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块"><span class="toc-text">模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用"><span class="toc-text">应用</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+        <section class="youyan" id="comments">
+    <script>
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = 'http://v2.uyan.cc/code/uyan.js?uid=2129336';
+            (d.head || d.body).appendChild(s);
+        }
+    </script>
+    
+    <aside class="comment-bar">
+        <a href="javascript:void(0);">
+            <i class="fa fa-commenting-o animated infinite pulse"></i>
+            <i class="fa fa-spinner fa-pulse"></i>
+            <span class="count-comment"></span>
+        </a>
+    </aside>
+    <script>
+        var $commentBar = $("#comments aside.comment-bar");
+        var load$hide = function(){
+            $commentBar.find("a > i").toggle();
+            loadComment();
+            $commentBar.fadeOut(800);
+        }
+        $commentBar.click(function(){
+            load$hide();
+        })
+        $commentBar.children("a").hover(function(){
+            load$hide();
+        })
+        if (window.location.hash === "#comments") {
+            load$hide();
+        }
+    </script>
+
+    <div id="uyan_frame"></div>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/20171219/python/tlibs/toapi/" title="上一篇: toapi">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/20171213/python/tlibs/mrq/" title="下一篇: MRQ">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/20171220/tools/mq/rabbitmq/">RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171220/python/tlibs/celery/celery_step2/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171219/python/tlibs/toapi/">toapi</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/celery/celery_first_step/">Celery First Step</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/mrq/">MRQ</a></li><li class="post-list-item"><a class="post-list-link" href="/20171213/python/tlibs/huey/">huey</a></li><li class="post-list-item"><a class="post-list-link" href="/20171208/python/tlibs/hot-redis/">hot-redis</a></li><li class="post-list-item"><a class="post-list-link" href="/20171018/luoo.net/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170928/index/">index page</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/coding/时间复杂度/">时间复杂度</a></li><li class="post-list-item"><a class="post-list-link" href="/20170925/leetcode/two-sum-(01)/">two sum (01)</a></li><li class="post-list-item"><a class="post-list-link" href="/20170504/tools/git/git.learn/">git 使用入门</a></li><li class="post-list-item"><a class="post-list-link" href="/20170405/tools/links/">useful links</a></li><li class="post-list-item"><a class="post-list-link" href="/20161220/tools/hexo/Hexo/">Hexo 使用</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 coghost
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  vundefined">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
